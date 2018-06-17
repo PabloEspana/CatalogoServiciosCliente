@@ -42,8 +42,8 @@ public class RegistroActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         web_Service = Volley.newRequestQueue(RegistroActivity.this);
 
-        final Button button = findViewById(R.id.btnRegistrar);
-        button.setOnClickListener(new View.OnClickListener() {
+        final Button registarse = findViewById(R.id.btnRegistrar);
+        registarse.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 progressDialog.setMessage("Espere");
                 progressDialog.show();
