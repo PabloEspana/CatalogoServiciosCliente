@@ -1,5 +1,8 @@
 package com.proyecto.catalogodeservicios;
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +18,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,6 +28,7 @@ public class RegistroActivity extends AppCompatActivity {
 
     RequestQueue web_Service;
     EditText nombre, correo, telefono, contrasena;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,24 +39,30 @@ public class RegistroActivity extends AppCompatActivity {
         telefono = (EditText)findViewById(R.id.txtTelefono);
         contrasena = (EditText)findViewById(R.id.txtContra);
 
+        progressDialog = new ProgressDialog(this);
         web_Service = Volley.newRequestQueue(RegistroActivity.this);
 
         final Button button = findViewById(R.id.btnRegistrar);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                StringRequest registroRequest = new StringRequest(
+                progressDialog.setMessage("Espere");
+                progressDialog.show();
+                StringRequest registroRequest = new StringRequest(      // Desde aqui inicia la peticion al servidor
                         Request.Method.POST,
                         "https://catalogoservicios.herokuapp.com/users/registro",
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-                                Toast.makeText(RegistroActivity.this, response, Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
+                                try { montrarMensaje(response); }
+                                catch (JSONException e) { e.printStackTrace(); }
                             }
                         },
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Toast.makeText(RegistroActivity.this, "Error al conectarse", Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
+                                Toast.makeText(RegistroActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
                             }
                         }
                 ){
@@ -66,5 +79,19 @@ public class RegistroActivity extends AppCompatActivity {
                 web_Service.add(registroRequest);
             }
         });
+    }
+
+    public AlertDialog montrarMensaje(String msg) throws JSONException {
+        JSONObject mensaje = new JSONObject(msg);
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle(mensaje.get("tipoMensaje").toString()).setMessage(mensaje.get("mensaje").toString())
+                .setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Acciones
+                    }
+                });
+        return alert.show();
     }
 }
