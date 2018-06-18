@@ -30,7 +30,7 @@ import java.util.Map;
 
 public class AdminActivity extends AppCompatActivity {
     JSONObject objeto;
-    TextView nombreUsuario, telefono, correo, id;
+    TextView nombreUsuario, telefono, correo, id, nombre;
     RequestQueue web_Service;
     private ProgressDialog progressDialog;
 
@@ -42,6 +42,7 @@ public class AdminActivity extends AppCompatActivity {
         nombreUsuario = (TextView)findViewById(R.id.lblNombreUsuario);
         telefono = (TextView)findViewById(R.id.lblTeleefono);
         correo = (TextView)findViewById(R.id.lblCorreo);
+        nombre = (TextView)findViewById(R.id.lblNombre);
 
         progressDialog = new ProgressDialog(this);
         web_Service = Volley.newRequestQueue(AdminActivity.this);
@@ -115,6 +116,7 @@ public class AdminActivity extends AppCompatActivity {
         final JSONObject mensaje = new JSONObject(msg);
         if(mensaje.get("tipoMensaje").equals("correcto")){
             Toast.makeText(this, mensaje.get("datos").toString(), Toast.LENGTH_SHORT).show();
+            nombre.setText("Nombre: "+mensaje.get("datos").toString());
         }
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle(mensaje.get("tipoMensaje").toString()).setMessage(mensaje.get("mensaje").toString())
