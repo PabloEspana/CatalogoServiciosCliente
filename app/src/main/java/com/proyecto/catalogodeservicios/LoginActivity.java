@@ -2,6 +2,7 @@ package com.proyecto.catalogodeservicios;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        getSupportActionBar().setTitle("Inicio de Sesión");
 
         correo = (EditText)findViewById(R.id.txtEmailLogin);
         contrasena = (EditText)findViewById(R.id.txtContraLogin);
@@ -79,17 +81,21 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public AlertDialog montrarMensaje(String msg) throws JSONException {
-        JSONObject mensaje = new JSONObject(msg);
+    public void montrarMensaje(String msg) throws JSONException {
+        final JSONObject mensaje = new JSONObject(msg);
+        if(mensaje.get("tipoMensaje").equals("correcto")){
+            Intent Admin = new Intent(getApplicationContext(), AdminActivity.class);
+            startActivity(Admin);
+        }
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle(mensaje.get("tipoMensaje").toString()).setMessage(mensaje.get("mensaje").toString())
                 .setPositiveButton("OK",
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                // Acciones
+
                             }
                         });
-        return alert.show();
+        alert.show();
     }
 }

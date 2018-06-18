@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -34,6 +35,8 @@ public class RegistroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
+        getSupportActionBar().setTitle("Registro");
+
         nombre = (EditText)findViewById(R.id.txtNombre);
         correo = (EditText)findViewById(R.id.txtEmail);
         telefono = (EditText)findViewById(R.id.txtTelefono);

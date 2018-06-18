@@ -23,7 +23,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".RegistroActivity" />
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".AdminActivity" />
+        <activity android:name=".ServiciosActivity" />
+        <activity android:name=".RegistroEmpresaActivity"></activity>
     </application>
 
 </manifest>
