@@ -1,8 +1,10 @@
 package com.proyecto.catalogodeservicios;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -84,6 +86,10 @@ public class LoginActivity extends AppCompatActivity {
     public void montrarMensaje(String msg) throws JSONException {
         final JSONObject mensaje = new JSONObject(msg);
         if(mensaje.get("tipoMensaje").equals("correcto")){
+            SharedPreferences.Editor editor = getSharedPreferences("Sesion", MODE_PRIVATE).edit();
+            editor.putString("estado", String.valueOf(true));
+            editor.putString("datos", mensaje.get("datos").toString());
+            editor.commit();
             Intent Admin = new Intent(getApplicationContext(), AdminActivity.class);
             startActivity(Admin);
         }

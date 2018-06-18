@@ -2,6 +2,7 @@ package com.proyecto.catalogodeservicios;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -85,14 +86,25 @@ public class RegistroActivity extends AppCompatActivity {
     }
 
     public AlertDialog montrarMensaje(String msg) throws JSONException {
-        JSONObject mensaje = new JSONObject(msg);
+        final JSONObject mensaje = new JSONObject(msg);
+        String msgPositiveButton = "OK";
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        if (mensaje.get("tipoMensaje").toString().equals("correcto")){
+            msgPositiveButton = "Iniciar Sesión";
+        }
         alert.setTitle(mensaje.get("tipoMensaje").toString()).setMessage(mensaje.get("mensaje").toString())
-                .setPositiveButton("OK",
+                .setPositiveButton(msgPositiveButton,
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // Acciones
+                        try {
+                            if(mensaje.get("tipoMensaje").equals("correcto")){
+                                Intent Login = new Intent(getApplicationContext(), LoginActivity.class);
+                                startActivity(Login);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
         return alert.show();
