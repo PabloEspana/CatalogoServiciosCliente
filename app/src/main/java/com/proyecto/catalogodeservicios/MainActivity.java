@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().setTitle("Catálogo de Servicios");
 
         final Button registro = findViewById(R.id.btnIrARegistrar);
         registro.setOnClickListener(new View.OnClickListener() {

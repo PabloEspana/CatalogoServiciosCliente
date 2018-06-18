@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="478dp"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin"
@@ -17,22 +17,28 @@
         android:orientation="vertical">
 
         <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btnIrARegistrar"
+            android:layout_width="match_parent"
+            android:layout_height="148dp"
+            android:layout_gravity="center"
+            android:text="Registrarse"
+            android:textColor="#fff"
+            app:backgroundTint="@color/colorPrimary" />
+
+        <android.support.v7.widget.AppCompatButton
             android:id="@+id/btnIrALogin"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
+            android:layout_width="match_parent"
+            android:layout_height="148dp"
             android:layout_gravity="center"
             android:text="Iniciar Sesión"
             android:textColor="#fff"
             app:backgroundTint="@color/colorPrimary" />
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btnIrARegistrar"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_gravity="center"
-            android:text="Registrarse"
-            android:textColor="#fff"
-            app:backgroundTint="@color/colorPrimary" />
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/images" />
 
     </LinearLayout>
 
