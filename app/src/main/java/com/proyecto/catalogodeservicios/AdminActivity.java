@@ -22,6 +22,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -111,12 +112,19 @@ public class AdminActivity extends AppCompatActivity {
         web_Service.add(registroRequest);
 
     }
-
     public void montrarMensaje(String msg) throws JSONException {
         final JSONObject mensaje = new JSONObject(msg);
+        String nombres = "";
         if(mensaje.get("tipoMensaje").equals("correcto")){
             Toast.makeText(this, mensaje.get("datos").toString(), Toast.LENGTH_SHORT).show();
-            nombre.setText("Nombre: "+mensaje.get("datos").toString());
+
+            JSONArray a = mensaje.getJSONArray("datos");
+            for (int i = 0; i < a.length(); i++) {
+                JSONObject jsonObject = a.getJSONObject(i);
+                //Toast.makeText(this, jsonObject.getString("nombre"), Toast.LENGTH_SHORT).show();
+                nombres += "Nombre: " + jsonObject.getString("nombre").toString()+"\n";
+            }
+            nombre.setText(nombres);
         }
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle(mensaje.get("tipoMensaje").toString()).setMessage(mensaje.get("mensaje").toString())
