@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegistroActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btnRegistrarEmpresa"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_gravity="right"
+            android:text="Agregar"
+            android:textColor="#fff"
+            android:layout_marginTop="30px"
+            android:layout_marginBottom="45px"
+            app:backgroundTint="@color/colorPrimary" />
+
+        <ListView
+            android:id="@+id/listaEmpresas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8px"
+            android:textSize="18sp"
+            />
+
+    </LinearLayout>
+
+
+
+</android.support.design.widget.CoordinatorLayout>

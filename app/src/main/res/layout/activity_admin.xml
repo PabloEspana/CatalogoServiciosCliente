@@ -75,20 +75,13 @@
             android:textSize="25px"
             android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/lblNombre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nombre"
-            android:layout_marginTop="35px"
-            android:textSize="20px"/>
 
         <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btnIrARegEmpresa"
+            android:id="@+id/btnVerEmpresa"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:layout_gravity="right"
-            android:text="Registrar Empresa"
+            android:layout_gravity="center"
+            android:text="Ver Mis Empresas"
             android:textColor="#fff"
             android:layout_marginTop="30px"
             android:layout_marginBottom="45px"

@@ -26,7 +26,9 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".AdminActivity" />
         <activity android:name=".ServiciosActivity" />
-        <activity android:name=".RegistroEmpresaActivity"></activity>
+        <activity android:name=".RegistroEmpresaActivity" />
+        <activity android:name=".MisEmpresasActivity" />
+        <activity android:name=".EmpresaSeleccionadaActivity"></activity>
     </application>
 
 </manifest>
