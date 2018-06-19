@@ -166,6 +166,4 @@ public class MisEmpresasActivity extends AppCompatActivity {
                         });
         alert.show();
     }
-
-
 }

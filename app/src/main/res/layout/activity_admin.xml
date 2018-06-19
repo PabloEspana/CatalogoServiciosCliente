@@ -16,6 +16,8 @@
         android:focusableInTouchMode="true"
         android:orientation="vertical">
 
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,6 +41,17 @@
                 >
             </TextView>
         </LinearLayout>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btnVerTodosServicios"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:text="Ver Catálogo de Servicios"
+            android:layout_marginTop="30px"
+            android:padding="30px"
+            android:layout_marginBottom="12px"
+            android:background="@drawable/boton_circular" />
 
         <TextView
             android:id="@+id/lblInfContacto"

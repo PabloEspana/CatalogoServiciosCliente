@@ -28,7 +28,8 @@
         <activity android:name=".ServiciosActivity" />
         <activity android:name=".RegistroEmpresaActivity" />
         <activity android:name=".MisEmpresasActivity" />
-        <activity android:name=".EmpresaSeleccionadaActivity"></activity>
+        <activity android:name=".EmpresaSeleccionadaActivity" />
+        <activity android:name=".RegistroServicioActivity"></activity>
     </application>
 
 </manifest>

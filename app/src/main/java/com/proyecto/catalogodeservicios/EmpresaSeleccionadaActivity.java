@@ -49,8 +49,8 @@ public class EmpresaSeleccionadaActivity extends AppCompatActivity {
         verSetvicios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent regServicio = new Intent(getApplicationContext(), RegistroServicioActivity.class);
-                //startActivity(regServicio);
+                Intent regServicio = new Intent(getApplicationContext(), RegistroServicioActivity.class);
+                startActivity(regServicio);
             }
         });
 

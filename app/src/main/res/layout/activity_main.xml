@@ -16,29 +16,36 @@
         android:focusableInTouchMode="true"
         android:orientation="vertical">
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btnIrARegistrar"
-            android:layout_width="match_parent"
-            android:layout_height="148dp"
-            android:layout_gravity="center"
-            android:text="Registrarse"
-            android:textColor="#fff"
-            app:backgroundTint="@color/colorPrimary" />
-
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btnIrALogin"
-            android:layout_width="match_parent"
-            android:layout_height="148dp"
-            android:layout_gravity="center"
-            android:text="Iniciar Sesión"
-            android:textColor="#fff"
-            app:backgroundTint="@color/colorPrimary" />
-
         <ImageView
             android:id="@+id/imageView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/images" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btnIrALogin"
+            android:layout_width="300px"
+            android:layout_height="100px"
+            android:layout_gravity="center"
+            android:text="Iniciar Sesión"
+            android:textColor="#fff"
+            app:backgroundTint="@color/colorPrimary"
+            android:background="@drawable/boton_circular"/>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btnIrARegistrar"
+            android:layout_width="300px"
+            android:layout_height="100px"
+            android:layout_gravity="center"
+            android:text="Registrarse"
+            android:textColor="#fff"
+            android:layout_marginTop="20px"
+            app:backgroundTint="@color/colorPrimary"
+            android:background="@drawable/boton_circular"/>
+
+
+
+
 
     </LinearLayout>
 
