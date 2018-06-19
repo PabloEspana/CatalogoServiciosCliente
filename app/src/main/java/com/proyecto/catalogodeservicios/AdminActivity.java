@@ -60,6 +60,15 @@ public class AdminActivity extends AppCompatActivity {
             }
         });
 
+        /*final Button verServicios = findViewById(R.id.btnVerTodosServicios);
+        verServicios.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent todosServicios = new Intent(getApplicationContext(), ServiciosActivity.class);
+                startActivity(todosServicios);
+            }
+        });*/
+
         //Obtengo datos de sesion
         SharedPreferences sesion = getSharedPreferences("Sesion", MODE_PRIVATE);
         String datosSesion = sesion.getString("estado", String.valueOf(false));

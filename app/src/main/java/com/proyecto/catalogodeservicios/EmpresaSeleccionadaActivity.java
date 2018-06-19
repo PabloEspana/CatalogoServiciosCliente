@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -33,6 +34,7 @@ public class EmpresaSeleccionadaActivity extends AppCompatActivity {
     RequestQueue web_Service;
     JSONArray a;
 
+    TextView nombreEmpresa, telefonEmpresa, correoEmpresa;
 
 
 
@@ -41,6 +43,10 @@ public class EmpresaSeleccionadaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_empresa_seleccionada);
         getSupportActionBar().setTitle("Mi empresa");
+
+        nombreEmpresa = (TextView)findViewById(R.id.lblNombreEmpresa);
+        telefonEmpresa = (TextView)findViewById(R.id.lblTeleefonoEmpresa);
+        correoEmpresa = (TextView)findViewById(R.id.lblCorreoEmpresa);
 
         progressDialog = new ProgressDialog(this);
         web_Service = Volley.newRequestQueue(EmpresaSeleccionadaActivity.this);
@@ -97,7 +103,11 @@ public class EmpresaSeleccionadaActivity extends AppCompatActivity {
         final JSONObject mensaje = new JSONObject(msg);
         if(mensaje.get("tipoMensaje").equals("correcto")){
             a = mensaje.getJSONArray("datos");
-            Toast.makeText(this, a.toString(), Toast.LENGTH_SHORT).show();
+            JSONObject jsonObject = a.getJSONObject(0);
+            nombreEmpresa.setText(jsonObject.getString("nombre").toString());
+            telefonEmpresa.setText("Teléfono: "+ jsonObject.getString("telefono").toString());
+            correoEmpresa.setText("Correo: "+ jsonObject.getString("correo").toString());
+
         }
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle(mensaje.get("tipoMensaje").toString()).setMessage(mensaje.get("mensaje").toString())
