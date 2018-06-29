@@ -60,14 +60,26 @@ public class AdminActivity extends AppCompatActivity {
             }
         });
 
-        /*final Button verServicios = findViewById(R.id.btnVerTodosServicios);
+        final Button verServicios = findViewById(R.id.btnVerTodosServicios);
         verServicios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent todosServicios = new Intent(getApplicationContext(), ServiciosActivity.class);
                 startActivity(todosServicios);
             }
-        });*/
+        });
+
+        final Button logout = findViewById(R.id.logout);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences settings = getSharedPreferences("Sesion", MODE_PRIVATE);
+                settings.edit().clear().commit();
+                Intent login = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(login);
+                finish();
+            }
+        });
 
         //Obtengo datos de sesion
         SharedPreferences sesion = getSharedPreferences("Sesion", MODE_PRIVATE);
@@ -83,5 +95,10 @@ public class AdminActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

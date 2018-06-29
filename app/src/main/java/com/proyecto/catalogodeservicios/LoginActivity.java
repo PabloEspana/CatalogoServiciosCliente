@@ -39,6 +39,17 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         getSupportActionBar().setTitle("Inicio de Sesión");
 
+        //Obtengo datos de sesion
+        SharedPreferences sesion = getSharedPreferences("Sesion", MODE_PRIVATE);
+        String datosSesion = sesion.getString("estado", null);
+        if (datosSesion != null) {
+            if (datosSesion.equals("iniciada")){
+                Intent admin = new Intent(getApplicationContext(), AdminActivity.class);
+                startActivity(admin);
+                finish();
+            }
+        }
+
         correo = (EditText)findViewById(R.id.txtEmailLogin);
         contrasena = (EditText)findViewById(R.id.txtContraLogin);
 
@@ -58,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(String response) {
                                 progressDialog.dismiss();
-                                try { montrarMensaje(response); }
+                                try { montrarMensaje(response); finish(); }
                                 catch (JSONException e) { e.printStackTrace(); }
                             }
                         },
@@ -87,11 +98,12 @@ public class LoginActivity extends AppCompatActivity {
         final JSONObject mensaje = new JSONObject(msg);
         if(mensaje.get("tipoMensaje").equals("correcto")){
             SharedPreferences.Editor editor = getSharedPreferences("Sesion", MODE_PRIVATE).edit();
-            editor.putString("estado", String.valueOf(true));
+            editor.putString("estado", "iniciada");
             editor.putString("datos", mensaje.get("datos").toString());
             editor.commit();
             Intent Admin = new Intent(getApplicationContext(), AdminActivity.class);
             startActivity(Admin);
+            finish();
         }
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle(mensaje.get("tipoMensaje").toString()).setMessage(mensaje.get("mensaje").toString())
@@ -103,5 +115,12 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         });
         alert.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent inicio = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(inicio);
+        finish();
     }
 }

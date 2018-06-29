@@ -91,6 +91,7 @@ public class RegistroServicioActivity extends AppCompatActivity {
             Intent Admin = new Intent(getApplicationContext(), AdminActivity.class);
             startActivity(Admin);
             Toast.makeText(this, "Servicio Publicado Correctamente", Toast.LENGTH_SHORT).show();
+            finish();
         }
         else if(mensaje.get("tipoMensaje").equals("error")){
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -104,5 +105,10 @@ public class RegistroServicioActivity extends AppCompatActivity {
                             });
             alert.show();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

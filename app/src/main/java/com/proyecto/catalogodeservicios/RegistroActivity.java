@@ -101,6 +101,7 @@ public class RegistroActivity extends AppCompatActivity {
                             if(mensaje.get("tipoMensaje").equals("correcto")){
                                 Intent Login = new Intent(getApplicationContext(), LoginActivity.class);
                                 startActivity(Login);
+                                finish();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -108,5 +109,10 @@ public class RegistroActivity extends AppCompatActivity {
                     }
                 });
         return alert.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

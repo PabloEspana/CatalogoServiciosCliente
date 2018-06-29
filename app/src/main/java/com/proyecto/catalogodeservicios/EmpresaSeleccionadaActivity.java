@@ -120,4 +120,10 @@ public class EmpresaSeleccionadaActivity extends AppCompatActivity {
                         });
         alert.show();
     }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
 }

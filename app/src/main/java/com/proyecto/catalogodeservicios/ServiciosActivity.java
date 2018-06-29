@@ -37,16 +37,16 @@ import java.util.Map;
 
 public class ServiciosActivity extends AppCompatActivity {
 
+
     JSONObject objeto;
     RequestQueue web_Service;
-    ListView todosServicios;
-    List<String> servicios = new ArrayList<String>();
-    //ArrayAdapter<String> adapter;
+    ListView listViewServicios;
+    List<String> listaServicios = new ArrayList<String >();
     ArrayAdapter<String> adapter;
     JSONArray a;
 
-    private ProgressDialog progressDialog;
 
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,34 +57,38 @@ public class ServiciosActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         web_Service = Volley.newRequestQueue(ServiciosActivity.this);
 
-        todosServicios = (ListView) findViewById(R.id.listaEmpresas);
+        listViewServicios = (ListView) findViewById(R.id.listaServicios);
 
-        final Button registroEmpresas = findViewById(R.id.btnNuevoServicio);
-        registroEmpresas.setOnClickListener(new View.OnClickListener() {
+        // Hay que validar si tiene empresa registrada (esto aun no debera estar)
+        final Button nuevoServicio = findViewById(R.id.btnNuevoServicio);
+        nuevoServicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent nuevo = new Intent(getApplicationContext(), RegistroServicioActivity.class);
+                Intent nuevo = new Intent(getApplicationContext(),  MisEmpresasActivity.class);
                 startActivity(nuevo);
+
             }
         });
 
-        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, servicios)
-        { // En este metodo se soluciona el color de texto
+        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, listaServicios)
+        {
             @Override
             public View getView(int position, View convertView, ViewGroup parent){
                 LayoutInflater inflater = LayoutInflater.from(this.getContext());
                 View view = inflater.inflate(R.layout.lista_servicios, null);
-                TextView textView1 = (TextView)view.findViewById(R.id.servicio);
-                textView1.setText(servicios.get(position));
-                textView1.setTextColor(Color.BLACK);
-                //letra.setTextColor(Color.BLACK);
+
+                TextView titulo = (TextView)view.findViewById(R.id.nombreServicio);
+                titulo.setText(listaServicios.get(position));
+
                 return view;
             }
         };
-        todosServicios.setAdapter(adapter);
-        //Consulta de empresas del usuario
+        listViewServicios.setAdapter(adapter);
+
+        //Consulta de todos los servicios
         progressDialog.setMessage("Espere");
         progressDialog.show();
+
         StringRequest registroRequest = new StringRequest(      // Desde aqui inicia la peticion al servidor
                 Request.Method.POST,
                 "https://catalogoservicios.herokuapp.com/users/servicios",
@@ -103,24 +107,8 @@ public class ServiciosActivity extends AppCompatActivity {
                         Toast.makeText(ServiciosActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
                     }
                 }
-        ){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> parametros = new HashMap<String, String>();
-                SharedPreferences sesion = getSharedPreferences("Sesion", MODE_PRIVATE);
-                String datos = sesion.getString("datos", null);
-                try {
-                    JSONObject objeto = new JSONObject(datos);
-                    parametros.put("idUser", objeto.get("_id").toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                return parametros;
-            }
-        };
+        );
         web_Service.add(registroRequest);
-
-
     }
 
     public void montrarMensaje(String msg) throws JSONException {
@@ -129,10 +117,11 @@ public class ServiciosActivity extends AppCompatActivity {
             a = mensaje.getJSONArray("datos");
             for (int i = 0; i < a.length(); i++) {
                 JSONObject jsonObject = a.getJSONObject(i);
-                servicios.add(jsonObject.getString("titulo").toString()+
-                "\n"+jsonObject.getString("descripcion").toString()+
-                        "\n"+jsonObject.getString("costo").toString());
-
+                String nombres = "Titulo: " + jsonObject.getString("titulo").toString()+"\n" +
+                        "Descripción: "+"\n"+
+                        "Costo: "+"\n"+
+                        "Empresa: "+"\n";
+                        listaServicios.add(nombres);
             }
             adapter.notifyDataSetChanged();
         }
@@ -147,4 +136,10 @@ public class ServiciosActivity extends AppCompatActivity {
                         });
         alert.show();
     }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
 }

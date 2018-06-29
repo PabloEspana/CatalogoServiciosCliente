@@ -98,6 +98,7 @@ public class RegistroEmpresaActivity extends AppCompatActivity {
             Intent Admin = new Intent(getApplicationContext(), AdminActivity.class);
             startActivity(Admin);
             Toast.makeText(this, "Empresa Creada correctamente", Toast.LENGTH_SHORT).show();
+            finish();
         }
         else if(mensaje.get("tipoMensaje").equals("error")){
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -111,5 +112,10 @@ public class RegistroEmpresaActivity extends AppCompatActivity {
                             });
             alert.show();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

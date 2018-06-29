@@ -34,7 +34,8 @@ tools:context=".ServiciosActivity">
         android:layout_height="wrap_content"
         android:padding="5px"
         android:textSize="18sp"
-        />
+        android:background="@drawable/boton_circular"/>
+
 
 </LinearLayout>
 

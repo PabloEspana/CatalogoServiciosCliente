@@ -42,9 +42,7 @@ public class MisEmpresasActivity extends AppCompatActivity {
     RequestQueue web_Service;
 
     ListView misEmpresas;
-    //ArrayList<String> empresas;
     List<String> empresas = new ArrayList<String>();
-    //ArrayAdapter<String> adapter;
     ArrayAdapter<String> adapter;
     JSONArray a;
 
@@ -165,5 +163,10 @@ public class MisEmpresasActivity extends AppCompatActivity {
                             }
                         });
         alert.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

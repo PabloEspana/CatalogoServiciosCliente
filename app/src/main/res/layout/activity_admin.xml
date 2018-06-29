@@ -16,6 +16,15 @@
         android:focusableInTouchMode="true"
         android:orientation="vertical">
 
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="Cerrar Sesión"
+            android:padding="30px"
+            android:textColor="@color/colorPrimaryLight"
+            android:background="@color/colorPrimaryDark" />
 
 
         <LinearLayout
