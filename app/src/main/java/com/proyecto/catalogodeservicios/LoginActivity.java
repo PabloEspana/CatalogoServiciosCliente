@@ -13,6 +13,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import android.support.design.widget.Snackbar;
+import android.support.design.widget.CoordinatorLayout;
+import android.graphics.Color;
+import android.widget.TextView;
+
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -32,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     RequestQueue web_Service;
     EditText correo, contrasena;
     private ProgressDialog progressDialog;
+    CoordinatorLayout coordinatorLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +57,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
 
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
+
         correo = (EditText)findViewById(R.id.txtEmailLogin);
         contrasena = (EditText)findViewById(R.id.txtContraLogin);
 
@@ -60,36 +69,47 @@ public class LoginActivity extends AppCompatActivity {
         inicioSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressDialog.setMessage("Espere");
-                progressDialog.show();
-                StringRequest registroRequest = new StringRequest(      // Desde aqui inicia la peticion al servidor
-                        Request.Method.POST,
-                        "https://catalogoservicios.herokuapp.com/users/login",
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                progressDialog.dismiss();
-                                try { montrarMensaje(response); finish(); }
-                                catch (JSONException e) { e.printStackTrace(); }
+                if(correo.getText().toString().trim().isEmpty() || contrasena.getText().toString().trim().isEmpty()){
+                    Snackbar snackbar = Snackbar.make(coordinatorLayout, "Complete todos los campos", Snackbar.LENGTH_LONG);
+                    snackbar.setActionTextColor(Color.rgb(255, 255, 255));
+                    View snackBarView = snackbar.getView();
+                    snackBarView.setBackgroundColor(Color.rgb(198, 40, 40));
+                    TextView textView = (TextView) snackBarView.findViewById(R.id.snackbar_text);
+                    textView.setTextColor(Color.rgb(255, 255, 255));
+                    snackbar.show();
+                }
+                else{
+                    progressDialog.setMessage("Espere");
+                    progressDialog.show();
+                    StringRequest registroRequest = new StringRequest(      // Desde aqui inicia la peticion al servidor
+                            Request.Method.POST,
+                            "https://catalogoservicios.herokuapp.com/users/login",
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    progressDialog.dismiss();
+                                    try { montrarMensaje(response); /*finish();*/ }
+                                    catch (JSONException e) { e.printStackTrace(); }
+                                }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    progressDialog.dismiss();
+                                    Toast.makeText(LoginActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
+                                }
                             }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                progressDialog.dismiss();
-                                Toast.makeText(LoginActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
-                            }
+                    ){
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError {
+                            Map<String, String> parametros = new HashMap<String, String>();
+                            parametros.put("correo", correo.getText().toString());
+                            parametros.put("contrasena", contrasena.getText().toString());
+                            return parametros;
                         }
-                ){
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String, String> parametros = new HashMap<String, String>();
-                        parametros.put("correo", correo.getText().toString());
-                        parametros.put("contrasena", contrasena.getText().toString());
-                        return parametros;
-                    }
-                };
-                web_Service.add(registroRequest);
+                    };
+                    web_Service.add(registroRequest);
+                }
             }
         });
     }
@@ -105,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(Admin);
             finish();
         }
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        /*AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle(mensaje.get("tipoMensaje").toString()).setMessage(mensaje.get("mensaje").toString())
                 .setPositiveButton("OK",
                         new DialogInterface.OnClickListener() {
@@ -114,7 +134,16 @@ public class LoginActivity extends AppCompatActivity {
 
                             }
                         });
-        alert.show();
+        alert.show();*/
+
+        Snackbar snackbar = Snackbar.make(coordinatorLayout, mensaje.get("mensaje").toString(), Snackbar.LENGTH_LONG);
+        snackbar.setActionTextColor(Color.rgb(255, 255, 255));
+        View snackBarView = snackbar.getView();
+        snackBarView.setBackgroundColor(Color.rgb(198, 40, 40));
+        TextView textView = (TextView) snackBarView.findViewById(R.id.snackbar_text);
+        textView.setTextColor(Color.rgb(255, 255, 255));
+        snackbar.show();
+
     }
 
     @Override
