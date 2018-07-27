@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
@@ -11,9 +11,6 @@ tools:context=".ServiciosActivity"
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-    android:layout_marginRight="@dimen/activity_horizontal_margin"
-    android:layout_marginTop="@dimen/activity_vertical_margin"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
@@ -28,19 +25,20 @@ tools:context=".ServiciosActivity"
         android:textColor="#fff"
         android:layout_marginTop="30px"
         android:layout_marginBottom="45px"
+        android:layout_marginRight="10dp"
         app:backgroundTint="@color/colorPrimary" />
 
     <ListView
         android:id="@+id/listaServicios"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5px"
+        android:padding="0px"
         android:textSize="18sp"
-        android:background="@drawable/boton_circular"/>
+        android:background="@drawable/fondo_blanco"/>
 
 
 </LinearLayout>
 
 
 
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

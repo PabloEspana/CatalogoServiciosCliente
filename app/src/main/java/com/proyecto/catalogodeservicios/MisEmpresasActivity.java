@@ -81,8 +81,6 @@ public class MisEmpresasActivity extends AppCompatActivity {
                     editor.commit();
                     Intent ESeleccionada = new Intent(getApplicationContext(), EmpresaSeleccionadaActivity.class);
                     startActivity(ESeleccionada);
-                    Toast.makeText(MisEmpresasActivity.this, jsonObject.getString("_id").toString(),
-                            Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) { e.printStackTrace(); }
             }
         });

@@ -30,10 +30,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class ServiciosActivity extends AppCompatActivity {
 
@@ -76,10 +83,13 @@ public class ServiciosActivity extends AppCompatActivity {
             public View getView(int position, View convertView, ViewGroup parent){
                 LayoutInflater inflater = LayoutInflater.from(this.getContext());
                 View view = inflater.inflate(R.layout.lista_servicios, null);
-
+                int[] androidColors = getResources().getIntArray(R.array.androidcolors);
                 TextView titulo = (TextView)view.findViewById(R.id.nombreServicio);
+                int randomAndroidColor = androidColors[new Random().nextInt(androidColors.length)];
+                titulo.setBackgroundColor(randomAndroidColor);
+                titulo.setTextColor(Color.WHITE);
                 titulo.setText(listaServicios.get(position));
-
+                titulo.setPadding(3,3,3,3);
                 return view;
             }
         };
@@ -97,7 +107,9 @@ public class ServiciosActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         progressDialog.dismiss();
                         try { montrarMensaje(response); }
-                        catch (JSONException e) { e.printStackTrace(); }
+                        catch (JSONException e) { e.printStackTrace(); } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -111,20 +123,24 @@ public class ServiciosActivity extends AppCompatActivity {
         web_Service.add(registroRequest);
     }
 
-    public void montrarMensaje(String msg) throws JSONException {
+    public void montrarMensaje(String msg) throws JSONException, ParseException {
         final JSONObject mensaje = new JSONObject(msg);
         if(mensaje.get("tipoMensaje").equals("correcto")){
             a = mensaje.getJSONArray("datos");
             for (int i = 0; i < a.length(); i++) {
                 JSONObject jsonObject = a.getJSONObject(i);
+                String empresa = jsonObject.getString("idEmpresa").toString();
+                JSONObject object_empresa = new JSONObject(empresa);
                 String nombres = "Titulo: " + jsonObject.getString("titulo").toString()+"\n" +
-                        "Descripción: "+"\n"+
-                        "Costo: "+"\n"+
-                        "Empresa: "+"\n";
+                        "Descripción: "+jsonObject.getString("descripcion").toString()+"\n"+
+                        "Costo: $"+jsonObject.getString("costo").toString()+"\n"+
+                        "Nombre de la empresa: "+ object_empresa.get("nombre").toString()+"\n"+
+                        "Teléfono de la empresa: "+ object_empresa.get("telefono").toString()+"\n"+
+                        "Correo de la empresa: "+ object_empresa.get("correo").toString()+"\n";
                         listaServicios.add(nombres);
             }
-            adapter.notifyDataSetChanged();
         }
+        adapter.notifyDataSetChanged();
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle(mensaje.get("tipoMensaje").toString()).setMessage(mensaje.get("mensaje").toString())
                 .setPositiveButton("OK",
